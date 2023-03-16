@@ -8,7 +8,7 @@ where a.district = 'Texas';
 
 
 --2. List all payments of more than $7.00 with the customer’s first and last name
-select c.first_name, c.last_name, p.*
+select c.first_name, c.last_name, p.amount 
 from customer c 
 join payment p 
 on c.customer_id = p.customer_id 
@@ -25,9 +25,15 @@ where customer_id in (
 	having sum(p.amount) > 175);
 
 --4. List all customers that live in Argentina (use the city table)
-select *
-from address
-where address.district = 'Argentina'
+select first_name, last_name, district, city, country
+from customer c 
+join address a 
+on c.address_id = a.address_id
+join city ci
+on a.city_id = ci.city_id
+join country co 
+on ci.country_id = co.country_id
+where country = 'Argentina';
 
 
 
